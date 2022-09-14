@@ -1,0 +1,1 @@
+import e from"../stages/generic.js";import r from"../stages/registration.js";import t from"../stages/username-password.js";function s(s){switch(s?.getStage&&s.getStage()){case"Registration":return r;case"UsernamePassword":return t;default:return e}}export{s as mapStepToStage};

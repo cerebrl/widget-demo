@@ -1,0 +1,1 @@
+function e(e){return e?.reduce(((e,r)=>(r&&(e=`${e} ${r.key}: ${r.value};`),e)),"")}export{e as generateStyleString};

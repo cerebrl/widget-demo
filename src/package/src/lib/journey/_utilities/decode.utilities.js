@@ -1,0 +1,1 @@
+function e(e){if("object"!=typeof document)return null;const n=document.createElement("div");return n.innerHTML=e,0===n.childNodes.length?"":n.childNodes[0].nodeValue}export{e as htmlDecode};

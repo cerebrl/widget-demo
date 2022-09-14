@@ -1,9 +1,27 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
+import Widget, { modal, journey, user } from './package/modal'
 import './App.css'
+
+new Widget({
+  props: {
+    config: {
+      serverConfig: {
+        baseUrl: 'https://openam-crbrl-01.forgeblocks.com/am/',
+        timeout: 5000,
+      }
+    }
+  },
+  target: document.getElementById('widget')
+})
 
 function App() {
   const [count, setCount] = useState(0)
+  const [userInfo, setUserInfo] = useState(null)
+
+  journey.onSuccess((data) => {
+    setUserInfo(data.user.response)
+  })
 
   return (
     <div className="App">
@@ -17,9 +35,19 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        {userInfo ? (
+          <>
+            <pre>{JSON.stringify(userInfo, null, ' ')}</pre>
+            <button onClick={() => {
+              user.logout()
+              setUserInfo(null)
+            }}>Logout</button>
+          </>
+        ) : (
+          <button onClick={() => modal.open()}>
+            Login
+          </button>
+        )}
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
